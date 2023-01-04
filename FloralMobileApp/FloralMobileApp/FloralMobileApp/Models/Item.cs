@@ -1,11 +1,25 @@
-﻿using System;
+﻿using ReactiveUI;
 
 namespace FloralMobileApp.Models
 {
-    public class Item
+    public class Item : ReactiveObject
     {
-        public string Id { get; set; }
-        public string Text { get; set; }
-        public string Description { get; set; }
+        public Item(string id, string title)
+        {
+            Id = id;
+            Title = title;
+        }
+
+        public string Id { get; }
+
+        public string Title { get; }
+
+        public bool IsCompleted
+        {
+            get => _isCompleted;
+            set => this.RaiseAndSetIfChanged(ref _isCompleted, value);
+        }
+
+        private bool _isCompleted;
     }
 }

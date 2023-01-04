@@ -2,11 +2,27 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FloralMobileApp.App">
-    <!--
-        Define global resources and styles here, that apply to all pages in your app.
-    -->
     <Application.Resources>
         <ResourceDictionary>
+            <Style x:Key="CardFrameStyle" TargetType="Frame">
+                <Setter Property="HasShadow" Value="False" />
+                <Setter Property="BorderColor"  Value="Black" />
+                <Setter Property="Padding" Value="10" />
+            </Style>
+            <Style x:Key="MainButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BackgroundColor"  Value="Black" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            </Style>
+            <Style x:Key="CircularButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BackgroundColor"  Value="Black" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="CornerRadius" Value="40" />
+                <Setter Property="WidthRequest" Value="80" />
+                <Setter Property="HeightRequest" Value="80" />
+                <Setter Property="FontSize" Value="50" />
+            </Style>
             <Color x:Key="Primary">#2196F3</Color>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
@@ -27,6 +43,6 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
-        </ResourceDictionary>        
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

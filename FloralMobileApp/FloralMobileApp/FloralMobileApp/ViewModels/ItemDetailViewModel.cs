@@ -1,57 +1,76 @@
-﻿using FloralMobileApp.Models;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿using System;
+using System.Reactive;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
+using FloralMobileApp.Services;
+using FloralMobileApp.Models;
+using ReactiveUI;
+using Sextant;
 
 namespace FloralMobileApp.ViewModels
 {
-    [QueryProperty(nameof(ItemId), nameof(ItemId))]
-    public class ItemDetailViewModel : BaseViewModel
+    public class ItemDetailViewModel : ViewModelBase
     {
-        private string itemId;
-        private string text;
-        private string description;
-        public string Id { get; set; }
-
-        public string Text
+        public ItemDetailViewModel(IParameterViewStackService navigationService, IItemManager itemManager) : base(navigationService)
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            _itemManager = itemManager;
+
+            var canExecute = this.WhenAnyValue(x => x.Title, (title) => !string.IsNullOrEmpty(title));
+
+            SaveCommand = ReactiveCommand.Create(ExecuteSave, canExecute);
+
+            CloseCommand = ReactiveCommand.CreateFromObservable(() => NavigationService.PopModal());
+
+            SaveCommand
+                .InvokeCommand(CloseCommand)
+                .DisposeWith(Subscriptions);
+
+            this.WhenAnyValue(x => x.ItemId)
+                .Where(x => x != null)
+                .Select(x => _itemManager.Get(x))
+                .Where(x => x.HasValue)
+                .Select(x => x.Value)
+                .Subscribe(x =>
+                {
+                    Title = x.Title;
+
+                })
+               .DisposeWith(Subscriptions);
         }
 
-        public string Description
+        public override IObservable<Unit> WhenNavigatingTo(INavigationParameter parameter)
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            if (parameter.TryGetValue(NavigationParameterConstants.ItemId, out string itemId))
+            {
+                ItemId = itemId;
+            }
+
+            return base.WhenNavigatedTo(parameter);
         }
 
-        public string ItemId
+        private void ExecuteSave() => _itemManager.AddOrUpdate(new Item(ItemId ?? Guid.NewGuid().ToString(), Title));
+
+        public ReactiveCommand<Unit, Unit> SaveCommand { get; }
+
+        public ReactiveCommand<Unit, Unit> CloseCommand { get; }
+
+        public override string Id => string.Empty;
+
+        public string Title
         {
-            get
-            {
-                return itemId;
-            }
-            set
-            {
-                itemId = value;
-                LoadItemId(value);
-            }
+            get => _title;
+            set => this.RaiseAndSetIfChanged(ref _title, value);
         }
 
-        public async void LoadItemId(string itemId)
+        private string ItemId
         {
-            try
-            {
-                var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
-                Text = item.Text;
-                Description = item.Description;
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("Failed to Load Item");
-            }
+            get => _itemId;
+            set => this.RaiseAndSetIfChanged(ref _itemId, value);
         }
+
+        private string _title;
+        private string _description;
+        private readonly IItemManager _itemManager;
+        private string _itemId;
     }
 }

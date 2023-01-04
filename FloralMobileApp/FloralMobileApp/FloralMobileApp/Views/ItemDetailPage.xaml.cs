@@ -1,15 +1,14 @@
-﻿using FloralMobileApp.ViewModels;
-using System.ComponentModel;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace FloralMobileApp.Views
 {
-    public partial class ItemDetailPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ItemDetailPage
     {
         public ItemDetailPage()
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
         }
     }
 }

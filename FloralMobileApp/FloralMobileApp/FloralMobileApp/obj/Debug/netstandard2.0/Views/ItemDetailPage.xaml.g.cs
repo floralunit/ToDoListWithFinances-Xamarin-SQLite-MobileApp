@@ -14,7 +14,7 @@ namespace FloralMobileApp.Views {
     
     
     [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("Views\\ItemDetailPage.xaml")]
-    public partial class ItemDetailPage : global::Xamarin.Forms.ContentPage {
+    public partial class ItemDetailPage : global::ReactiveUI.XamForms.ReactiveContentPage<global::FloralMobileApp.ViewModels.ItemDetailViewModel> {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
