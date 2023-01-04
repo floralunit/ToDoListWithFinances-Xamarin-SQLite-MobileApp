@@ -245,3 +245,5 @@ paket-files/
 *.sln.iml
 FloralMobileApp\FloralMobileApp\FloralMobileApp\bin
 FloralMobileApp\FloralMobileApp\FloralMobileApp\obj
+FloralMobileApp\FloralMobileApp\FloralMobileApp.Android\bin
+FloralMobileApp\FloralMobileApp\FloralMobileApp.Android\obj
