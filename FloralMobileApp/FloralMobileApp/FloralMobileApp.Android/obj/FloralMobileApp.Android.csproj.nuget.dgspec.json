@@ -88,19 +88,35 @@
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
           "dependencies": {
+            "DynamicData": {
+              "target": "Package",
+              "version": "[7.12.11, )"
+            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
             },
+            "ReactiveUI.XamForms": {
+              "target": "Package",
+              "version": "[18.4.1, )"
+            },
+            "Sextant.XamForms": {
+              "target": "Package",
+              "version": "[2.12.4, )"
+            },
+            "Xamarin.CommunityToolkit": {
+              "target": "Package",
+              "version": "[2.0.5, )"
+            },
             "Xamarin.Essentials": {
               "target": "Package",
-              "version": "[1.7.0, )"
+              "version": "[1.7.4, )"
             },
             "Xamarin.Forms": {
               "target": "Package",
-              "version": "[5.0.0.2196, )"
+              "version": "[5.0.0.2545, )"
             }
           },
           "imports": [
