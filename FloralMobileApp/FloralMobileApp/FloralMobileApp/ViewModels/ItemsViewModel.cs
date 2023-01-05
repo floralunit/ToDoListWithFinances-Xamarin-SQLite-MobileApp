@@ -18,30 +18,47 @@ namespace FloralMobileApp.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private readonly Services.IMessageService _messageService;
+        #region Properties
+
+        public ObservableCollection<Item> Items { get; }
+        public Item SelectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                SetProperty(ref _selectedItem, value);
+                OnItemSelected(value);
+            }
+        }
         private Item _selectedItem;
-        private bool isCompleted;
+
+        #endregion
+
+        #region Commands 
+
         public Command LoadItemsCommand { get; }
         public Command AddCommand { get; }
         public Command<Item> ViewCommand { get; }
         public Command<Item> DeleteCommand { get; }
-        public ObservableCollection<Item> Items { get; }
+
+        #endregion
+
+        #region Constructors
 
         public ItemsViewModel()
         {
-            this._messageService = DependencyService.Get<Services.IMessageService>();
-            _messageService.ShowAsync("Hi!!!пидрила");
             Title = "Browse";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-
             DeleteCommand = new Command<Item>(OnDeleteItem);
-
             AddCommand = new Command(OnAddItem);
-
             ViewCommand = new Command<Item>(OnItemSelected);
-
         }
+
+        #endregion
+
+        #region Command Handlers
+
         async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
@@ -64,24 +81,10 @@ namespace FloralMobileApp.ViewModels
                 IsBusy = false;
             }
         }
-        public bool IsCompleted
-        {
-            get => isCompleted;
-            set => SetProperty(ref isCompleted, value);
-        }
         public void OnAppearing()
         {
             IsBusy = true;
             SelectedItem = null;
-        }
-        public Item SelectedItem
-        {
-            get => _selectedItem;
-            set
-            {
-                SetProperty(ref _selectedItem, value);
-                OnItemSelected(value);
-            }
         }
         private async void OnAddItem(object obj)
         {
@@ -95,7 +98,11 @@ namespace FloralMobileApp.ViewModels
         }
         private async void OnDeleteItem(Item item)
         {
-            await DataStore.DeleteItemAsync(item.Id);
+            await DataStore.DeleteItemAsync(item);
+            await ExecuteLoadItemsCommand();
         }
+
+        #endregion
+
     }
 }

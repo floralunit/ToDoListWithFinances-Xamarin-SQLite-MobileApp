@@ -22,7 +22,6 @@
                 HorizontalOptions="FillAndExpand">
                 <Entry Placeholder="Title"
                        Text="{Binding Title}" />
-                <CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}"/>
                 <Button Command="{Binding SaveCommand}"
                         Style="{StaticResource MainButtonStyle}"
                         Text="Save"/>

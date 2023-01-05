@@ -39,10 +39,9 @@ namespace FloralMobileApp.Services
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteItemAsync(string id)
+        public async Task<bool> DeleteItemAsync(Item item)
         {
-            var oldItem = items.Where((Item arg) => arg.Id == id).FirstOrDefault();
-            items.Remove(oldItem);
+            items.Remove(item);
 
             return await Task.FromResult(true);
         }

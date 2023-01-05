@@ -9,7 +9,7 @@ namespace FloralMobileApp.Services
     {
         public async Task ShowAsync(string message)
         {
-            await App.Current.MainPage.DisplayAlert("YourApp", message, "Ok");
+            await App.Current.MainPage.DisplayAlert("floral.helper", message, "Ok");
         }
     }
 }

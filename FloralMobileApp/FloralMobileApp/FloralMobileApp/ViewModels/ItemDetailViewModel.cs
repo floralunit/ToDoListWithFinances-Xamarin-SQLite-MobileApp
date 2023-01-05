@@ -14,17 +14,49 @@ namespace FloralMobileApp.ViewModels
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
-        private readonly Services.IMessageService _messageService;
+        #region Properties
+
+        public string Title
+        {
+            get => title;
+            set => SetProperty(ref title, value);
+        }
+        public string ItemId
+        {
+            get
+            {
+                return itemId;
+            }
+            set
+            {
+                itemId = value;
+                LoadItemId(value);
+            }
+        }
+        public string Id { get; set; }
+        private string itemId;
+        private string title;
+
+        #endregion
+
+        #region Commands 
+
+        public Command SaveCommand { get; }
+        public Command CancelCommand { get; }
+        #endregion
+
+        #region Constructors
         public ItemDetailViewModel()
         {
-            this._messageService = DependencyService.Get<Services.IMessageService>();
-
             SaveCommand = new Command(OnSave, ValidateSave);
-
             CancelCommand = new Command(OnCancel);
             this.PropertyChanged +=
     (_, __) => SaveCommand.ChangeCanExecute();
         }
+
+        #endregion
+
+        #region Command Handlers
 
         private bool ValidateSave()
         {
@@ -36,7 +68,6 @@ namespace FloralMobileApp.ViewModels
             {
                 var oldItem = await DataStore.GetItemAsync(ItemId);
                 oldItem.Title = Title;
-                _messageService.ShowAsync(oldItem.Title);
                 await DataStore.UpdateItemAsync(oldItem);
             }
             else
@@ -58,33 +89,6 @@ namespace FloralMobileApp.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
-        public Command SaveCommand { get; }
-
-        public Command CancelCommand { get; }
-
-        public string Title
-        {
-            get => title;
-            set => SetProperty(ref title, value);
-        }
-        public bool IsCompleted
-        {
-            get => isCompleted;
-            set => SetProperty(ref isCompleted, value);
-        }
-
-        public string ItemId
-        {
-            get
-            {
-                return itemId;
-            }
-            set
-            {
-                itemId = value;
-                LoadItemId(value);
-            }
-        }
         public async void LoadItemId(string itemId)
         {
             try
@@ -99,9 +103,8 @@ namespace FloralMobileApp.ViewModels
                 Debug.WriteLine("Failed to Load Item");
             }
         }
-        public string Id { get; set; }
-        private string itemId;
-        private string title;
-        private bool isCompleted;
+
+        #endregion
+
     }
 }
