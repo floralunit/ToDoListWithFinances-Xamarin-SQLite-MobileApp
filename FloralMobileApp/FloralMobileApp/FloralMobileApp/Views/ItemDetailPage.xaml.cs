@@ -1,14 +1,18 @@
-﻿using Xamarin.Forms;
+﻿using FloralMobileApp.Services;
+using FloralMobileApp.ViewModels;
+using Sextant;
+using Splat;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace FloralMobileApp.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ItemDetailPage
     {
         public ItemDetailPage()
         {
             InitializeComponent();
+            BindingContext = new ItemDetailViewModel(Locator.Current.GetService<IParameterViewStackService>(), Locator.Current.GetService<IItemManager>());
         }
     }
 }

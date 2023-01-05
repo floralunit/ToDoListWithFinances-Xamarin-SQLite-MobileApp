@@ -17,6 +17,7 @@ namespace FloralMobileApp
 
         public App()
         {
+            DependencyService.Register<IMessageService, MessageService>();
             InitializeComponent();
 
             DependencyService.Register<ItemManager>();
@@ -44,9 +45,9 @@ namespace FloralMobileApp
                 .PushPage<ItemsViewModel>(null, true, false)
                 .Subscribe();
 
-            //MainPage = new AppShell();
+            MainPage = new AppShell();
 
-            MainPage = Locator.Current.GetNavigationView("NavigationView");
+            //MainPage = Locator.Current.GetNavigationView("NavigationView");
         }
 
         protected override void OnStart()

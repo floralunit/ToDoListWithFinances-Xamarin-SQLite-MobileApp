@@ -6,13 +6,17 @@ using FloralMobileApp.Services;
 using FloralMobileApp.Models;
 using ReactiveUI;
 using Sextant;
+using Xamarin.Forms;
 
 namespace FloralMobileApp.ViewModels
 {
     public class ItemDetailViewModel : ViewModelBase
     {
+        private readonly Services.IMessageService _messageService;
         public ItemDetailViewModel(IParameterViewStackService navigationService, IItemManager itemManager) : base(navigationService)
         {
+            this._messageService = DependencyService.Get<Services.IMessageService>();
+            _messageService.ShowAsync("Hi!!!пидрилаdetail");
             _itemManager = itemManager;
 
             var canExecute = this.WhenAnyValue(x => x.Title, (title) => !string.IsNullOrEmpty(title));

@@ -15,6 +15,7 @@ namespace FloralMobileApp.ViewModels
 {
     public class ItemsViewModel : ViewModelBase
     {
+        private readonly Services.IMessageService _messageService;
 
         public ItemsViewModel(IParameterViewStackService navigationService, IItemManager itemManager) : base(navigationService)
         {
@@ -25,6 +26,8 @@ namespace FloralMobileApp.ViewModels
             //ItemTapped = new Command<Item>(OnItemSelected);
 
             //AddItemCommand = new Command(OnAddItem);
+            this._messageService = DependencyService.Get<Services.IMessageService>();
+            _messageService.ShowAsync("Hi!!!пидрила");
 
             DeleteCommand = ReactiveCommand.Create<Item>(itemManager.Remove);
 
@@ -55,6 +58,7 @@ namespace FloralMobileApp.ViewModels
                 .Where(x => x != null)
                 .InvokeCommand(ViewCommand)
                 .DisposeWith(Subscriptions);
+
         }
 
         public ReactiveCommand<Unit, Unit> AddCommand { get; }
