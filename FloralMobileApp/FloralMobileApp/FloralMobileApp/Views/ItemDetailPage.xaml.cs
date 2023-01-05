@@ -12,7 +12,7 @@ namespace FloralMobileApp.Views
         public ItemDetailPage()
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel(Locator.Current.GetService<IParameterViewStackService>(), Locator.Current.GetService<IItemManager>());
+            BindingContext = new ItemDetailViewModel();
         }
     }
 }

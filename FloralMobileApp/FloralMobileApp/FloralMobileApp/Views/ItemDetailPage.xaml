@@ -8,7 +8,7 @@
     x:TypeArguments="vm:ItemDetailViewModel">
     
     <rxui:ReactiveContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding CloseCommand}" Text="Close" />
+        <ToolbarItem Command="{Binding CancelCommand}" Text="Close" />
     </rxui:ReactiveContentPage.ToolbarItems>
     <StackLayout>
         <Label Text="Item"
@@ -22,6 +22,7 @@
                 HorizontalOptions="FillAndExpand">
                 <Entry Placeholder="Title"
                        Text="{Binding Title}" />
+                <CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}"/>
                 <Button Command="{Binding SaveCommand}"
                         Style="{StaticResource MainButtonStyle}"
                         Text="Save"/>

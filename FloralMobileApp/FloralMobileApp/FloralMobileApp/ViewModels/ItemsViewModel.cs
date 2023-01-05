@@ -10,75 +10,92 @@ using FloralMobileApp.Models;
 using ReactiveUI;
 using Sextant;
 using Xamarin.Forms;
+using FloralMobileApp.Views;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace FloralMobileApp.ViewModels
 {
-    public class ItemsViewModel : ViewModelBase
+    public class ItemsViewModel : BaseViewModel
     {
         private readonly Services.IMessageService _messageService;
+        private Item _selectedItem;
+        private bool isCompleted;
+        public Command LoadItemsCommand { get; }
+        public Command AddCommand { get; }
+        public Command<Item> ViewCommand { get; }
+        public Command<Item> DeleteCommand { get; }
+        public ObservableCollection<Item> Items { get; }
 
-        public ItemsViewModel(IParameterViewStackService navigationService, IItemManager itemManager) : base(navigationService)
+        public ItemsViewModel()
         {
-            //Title = "Browse";
-            //Items = new ObservableCollection<Item>();
-            //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-
-            //ItemTapped = new Command<Item>(OnItemSelected);
-
-            //AddItemCommand = new Command(OnAddItem);
             this._messageService = DependencyService.Get<Services.IMessageService>();
             _messageService.ShowAsync("Hi!!!пидрила");
+            Title = "Browse";
+            Items = new ObservableCollection<Item>();
+            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            DeleteCommand = ReactiveCommand.Create<Item>(itemManager.Remove);
+            DeleteCommand = new Command<Item>(OnDeleteItem);
 
-            itemManager
-                 .ItemChanges
-                 .Bind(out _items)
-                 .DisposeMany()
-                 .Subscribe()
-                 .DisposeWith(Subscriptions);
+            AddCommand = new Command(OnAddItem);
 
-            itemManager.AddOrUpdate(new Item(Guid.NewGuid().ToString(), "Family vacation planning"));
-            itemManager.AddOrUpdate(new Item(Guid.NewGuid().ToString(), "Buy Christmas Gifts"));
-            itemManager.AddOrUpdate(new Item(Guid.NewGuid().ToString(), "Go to the Bank"));
-            itemManager.AddOrUpdate(new Item(Guid.NewGuid().ToString(), "Buy Milk"));
-
-            AddCommand = ReactiveCommand.CreateFromObservable(() => NavigationService.PushModal<ItemDetailViewModel>());
-
-            ViewCommand = ReactiveCommand.CreateFromObservable<Item, Unit>((item) =>
-            {
-                SelectedItem = null;
-                return NavigationService.PushModal<ItemDetailViewModel>(new NavigationParameter()
-                                {
-                                    { NavigationParameterConstants.ItemId , item.Id }
-                                });
-            });
-
-            this.WhenAnyValue(x => x.SelectedItem)
-                .Where(x => x != null)
-                .InvokeCommand(ViewCommand)
-                .DisposeWith(Subscriptions);
+            ViewCommand = new Command<Item>(OnItemSelected);
 
         }
+        async Task ExecuteLoadItemsCommand()
+        {
+            IsBusy = true;
 
-        public ReactiveCommand<Unit, Unit> AddCommand { get; }
-
-        public ReactiveCommand<Item, Unit> ViewCommand { get; }
-
-        public ReactiveCommand<Item, Unit> DeleteCommand { get; }
-
+            try
+            {
+                Items.Clear();
+                var items = await DataStore.GetItemsAsync(true);
+                foreach (var item in items)
+                {
+                    Items.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public bool IsCompleted
+        {
+            get => isCompleted;
+            set => SetProperty(ref isCompleted, value);
+        }
+        public void OnAppearing()
+        {
+            IsBusy = true;
+            SelectedItem = null;
+        }
         public Item SelectedItem
         {
             get => _selectedItem;
-            set => this.RaiseAndSetIfChanged(ref _selectedItem, value);
+            set
+            {
+                SetProperty(ref _selectedItem, value);
+                OnItemSelected(value);
+            }
         }
-
-
-        public ReadOnlyObservableCollection<Item> Items => _items;
-
-        public override string Id => "Reactive ToDo";
-
-        private readonly ReadOnlyObservableCollection<Item> _items;
-        private Item _selectedItem;
+        private async void OnAddItem(object obj)
+        {
+            await Shell.Current.GoToAsync(nameof(ItemDetailPage));
+        }
+        async void OnItemSelected(Item item)
+        {
+            if (item == null)
+                return;
+            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+        }
+        private async void OnDeleteItem(Item item)
+        {
+            await DataStore.DeleteItemAsync(item.Id);
+        }
     }
 }

@@ -4,16 +4,9 @@ namespace FloralMobileApp.Models
 {
     public class Item : ReactiveObject
     {
-        public Item(string id, string title)
-        {
-            Id = id;
-            Title = title;
-        }
+        public string Id { get; set; }
 
-        public string Id { get; }
-
-        public string Title { get; }
-
+        public string Title { get; set; }
         public bool IsCompleted
         {
             get => _isCompleted;

@@ -17,37 +17,12 @@ namespace FloralMobileApp
 
         public App()
         {
+            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             DependencyService.Register<IMessageService, MessageService>();
             InitializeComponent();
-
-            DependencyService.Register<ItemManager>();
-
-            RxApp.DefaultExceptionHandler = new RxExceptionHandler();
-
-            Instance.InitializeForms();
-
-            Locator
-               .CurrentMutable
-               .RegisterConstant<IItemManager>(new ItemManager());
-
-            Locator
-               .CurrentMutable
-               .RegisterNavigationView(() => new NavigationView(RxApp.MainThreadScheduler, RxApp.TaskpoolScheduler, ViewLocator.Current))
-               .RegisterParameterViewStackService()
-               .RegisterView<ItemsPage, ItemsViewModel>()
-               .RegisterView<ItemDetailPage, ItemDetailViewModel>()
-               .RegisterViewModel(() => new ItemsViewModel(Locator.Current.GetService<IParameterViewStackService>(), Locator.Current.GetService<IItemManager>()))
-               .RegisterViewModel(() => new ItemDetailViewModel(Locator.Current.GetService<IParameterViewStackService>(), Locator.Current.GetService<IItemManager>()));
-
-            Locator
-                .Current
-                .GetService<IParameterViewStackService>()
-                .PushPage<ItemsViewModel>(null, true, false)
-                .Subscribe();
+            DependencyService.Register<MockDataStore>();
 
             MainPage = new AppShell();
-
-            //MainPage = Locator.Current.GetNavigationView("NavigationView");
         }
 
         protected override void OnStart()

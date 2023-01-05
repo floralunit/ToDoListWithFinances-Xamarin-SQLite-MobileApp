@@ -10,6 +10,7 @@ namespace FloralMobileApp.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
 
         bool isBusy = false;
         public bool IsBusy
@@ -23,6 +24,12 @@ namespace FloralMobileApp.ViewModels
         {
             get { return title; }
             set { SetProperty(ref title, value); }
+        }
+        bool isCompleted = false;
+        public bool IsCompleted
+        {
+            get { return isCompleted; }
+            set { SetProperty(ref isCompleted, value); }
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,

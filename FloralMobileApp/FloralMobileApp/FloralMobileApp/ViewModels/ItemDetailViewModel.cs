@@ -7,74 +7,101 @@ using FloralMobileApp.Models;
 using ReactiveUI;
 using Sextant;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 namespace FloralMobileApp.ViewModels
 {
-    public class ItemDetailViewModel : ViewModelBase
+    [QueryProperty(nameof(ItemId), nameof(ItemId))]
+    public class ItemDetailViewModel : BaseViewModel
     {
         private readonly Services.IMessageService _messageService;
-        public ItemDetailViewModel(IParameterViewStackService navigationService, IItemManager itemManager) : base(navigationService)
+        public ItemDetailViewModel()
         {
             this._messageService = DependencyService.Get<Services.IMessageService>();
-            _messageService.ShowAsync("Hi!!!пидрилаdetail");
-            _itemManager = itemManager;
 
-            var canExecute = this.WhenAnyValue(x => x.Title, (title) => !string.IsNullOrEmpty(title));
+            SaveCommand = new Command(OnSave, ValidateSave);
 
-            SaveCommand = ReactiveCommand.Create(ExecuteSave, canExecute);
-
-            CloseCommand = ReactiveCommand.CreateFromObservable(() => NavigationService.PopModal());
-
-            SaveCommand
-                .InvokeCommand(CloseCommand)
-                .DisposeWith(Subscriptions);
-
-            this.WhenAnyValue(x => x.ItemId)
-                .Where(x => x != null)
-                .Select(x => _itemManager.Get(x))
-                .Where(x => x.HasValue)
-                .Select(x => x.Value)
-                .Subscribe(x =>
-                {
-                    Title = x.Title;
-
-                })
-               .DisposeWith(Subscriptions);
+            CancelCommand = new Command(OnCancel);
+            this.PropertyChanged +=
+    (_, __) => SaveCommand.ChangeCanExecute();
         }
 
-        public override IObservable<Unit> WhenNavigatingTo(INavigationParameter parameter)
+        private bool ValidateSave()
         {
-            if (parameter.TryGetValue(NavigationParameterConstants.ItemId, out string itemId))
+            return !string.IsNullOrEmpty(Title);
+        }
+        private async void OnSave()
+        {
+            if (!string.IsNullOrEmpty(ItemId))
             {
-                ItemId = itemId;
+                var oldItem = await DataStore.GetItemAsync(ItemId);
+                oldItem.Title = Title;
+                _messageService.ShowAsync(oldItem.Title);
+                await DataStore.UpdateItemAsync(oldItem);
+            }
+            else
+            {
+                Item newItem = new Item()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Title = Title,
+                    IsCompleted = false,
+                };
+
+                await DataStore.AddItemAsync(newItem);
             }
 
-            return base.WhenNavigatedTo(parameter);
+            await Shell.Current.GoToAsync("..");
+        }
+        private async void OnCancel()
+        {
+            await Shell.Current.GoToAsync("..");
         }
 
-        private void ExecuteSave() => _itemManager.AddOrUpdate(new Item(ItemId ?? Guid.NewGuid().ToString(), Title));
+        public Command SaveCommand { get; }
 
-        public ReactiveCommand<Unit, Unit> SaveCommand { get; }
-
-        public ReactiveCommand<Unit, Unit> CloseCommand { get; }
-
-        public override string Id => string.Empty;
+        public Command CancelCommand { get; }
 
         public string Title
         {
-            get => _title;
-            set => this.RaiseAndSetIfChanged(ref _title, value);
+            get => title;
+            set => SetProperty(ref title, value);
         }
-
-        private string ItemId
+        public bool IsCompleted
         {
-            get => _itemId;
-            set => this.RaiseAndSetIfChanged(ref _itemId, value);
+            get => isCompleted;
+            set => SetProperty(ref isCompleted, value);
         }
 
-        private string _title;
-        private string _description;
-        private readonly IItemManager _itemManager;
-        private string _itemId;
+        public string ItemId
+        {
+            get
+            {
+                return itemId;
+            }
+            set
+            {
+                itemId = value;
+                LoadItemId(value);
+            }
+        }
+        public async void LoadItemId(string itemId)
+        {
+            try
+            {
+                var item = await DataStore.GetItemAsync(itemId);
+                Id = item.Id;
+                Title = item.Title;
+                IsCompleted = item.IsCompleted;
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("Failed to Load Item");
+            }
+        }
+        public string Id { get; set; }
+        private string itemId;
+        private string title;
+        private bool isCompleted;
     }
 }

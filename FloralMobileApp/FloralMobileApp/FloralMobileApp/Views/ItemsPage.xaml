@@ -4,49 +4,51 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
-    xmlns:vm="clr-namespace:FloralMobileApp.ViewModels"
+    xmlns:vm="clr-namespace:FloralMobileApp.ViewModels" xmlns:model="clr-namespace:FloralMobileApp.Models"
     x:Name="homePage"
     Title="Reactive ToDo"
     x:TypeArguments="vm:ItemsViewModel">
     
     <StackLayout Padding="20">
-        <CollectionView
+        <RefreshView x:DataType="vm:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <CollectionView
         ItemsSource="{Binding Items}"
         SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
         SelectionMode="Single">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical"
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
                                 VerticalItemSpacing="10" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Style="{StaticResource CardFrameStyle}">
-                        <Frame.Triggers>
-                            <DataTrigger TargetType="Frame"
-                                        Binding="{Binding IsCompleted}"
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Style="{StaticResource CardFrameStyle}" x:DataType="model:Item">
+                            <Frame.Triggers>
+                                <DataTrigger TargetType="Frame"
+                                        Binding="{Binding IsCompleted, Mode=TwoWay}"
                                         Value="True">
-                                <Setter Property="Opacity" Value="0.2" />
-                            </DataTrigger>
-                        </Frame.Triggers>
-                        <StackLayout Orientation="Horizontal">
-                            <CheckBox IsChecked="{Binding IsCompleted}"/>
-                            <Label Text="{Binding Title}"
+                                    <Setter Property="Opacity" Value="0.2" />
+                                </DataTrigger>
+                            </Frame.Triggers>
+                            <StackLayout Orientation="Horizontal" x:DataType="model:Item">
+                                <CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}"/>
+                                <Label Text="{Binding Title}"
                                 HorizontalOptions="FillAndExpand"
                                 FontAttributes="Bold"
                                 VerticalOptions="Center"/>
 
-                            <Label Text="🗑"
+                                <Label Text="🗑"
                                VerticalOptions="EndAndExpand">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={x:Reference homePage}, Path=BindingContext.DeleteCommand}"
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference homePage}, Path=BindingContext.DeleteCommand}"
                                                       CommandParameter="{Binding}"/>
-                                </Label.GestureRecognizers>
-                            </Label>
-                        </StackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
         <Button Style="{StaticResource CircularButtonStyle}"
                 Command="{Binding AddCommand}"
                 Text="+"/>
