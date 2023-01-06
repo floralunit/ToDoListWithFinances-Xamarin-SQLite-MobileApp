@@ -94,7 +94,7 @@ namespace FloralMobileApp.ViewModels
         private async void OnDeleteItem(Item item)
         {
             await App.Db.DeleteItemAsync(item);
-            await ExecuteLoadItemsCommand();
+            Items.Remove(item);
         }
         private async void IsCheckedChanged(Item item)
         {
