@@ -20,7 +20,6 @@ namespace FloralMobileApp.ViewModels
             set
             {
                 SetProperty(ref _selectedItem, value);
-                OnItemSelected(value);
             }
         }
         public string MenuTitle
