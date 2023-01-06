@@ -1,14 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reactive;
-using System.Reactive.Disposables;
-using System.Reactive.Linq;
-using DynamicData;
-using FloralMobileApp.Services;
 using FloralMobileApp.Models;
-using ReactiveUI;
-using Sextant;
 using Xamarin.Forms;
 using FloralMobileApp.Views;
 using System.Threading.Tasks;
@@ -53,6 +45,8 @@ namespace FloralMobileApp.ViewModels
             DeleteCommand = new Command<Item>(OnDeleteItem);
             AddCommand = new Command(OnAddItem);
             ViewCommand = new Command<Item>(OnItemSelected);
+            string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            MessageService.ShowAsync(folderPath);
         }
 
         #endregion
@@ -66,7 +60,7 @@ namespace FloralMobileApp.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await App.Db.GetItemsAsync();
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -81,24 +75,25 @@ namespace FloralMobileApp.ViewModels
                 IsBusy = false;
             }
         }
-        public void OnAppearing()
+        public async Task OnAppearingAsync()
         {
+            await App.Db.CreateTable();
             IsBusy = true;
             SelectedItem = null;
         }
         private async void OnAddItem(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(ItemDetailPage));
+            await Shell.Current.GoToAsync(nameof(AddEditItemPage));
         }
         async void OnItemSelected(Item item)
         {
             if (item == null)
                 return;
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(AddEditItemPage)}?{nameof(AddEditItemViewModel.ItemId)}={item.Id}");
         }
         private async void OnDeleteItem(Item item)
         {
-            await DataStore.DeleteItemAsync(item);
+            await App.Db.DeleteItemAsync(item);
             await ExecuteLoadItemsCommand();
         }
 

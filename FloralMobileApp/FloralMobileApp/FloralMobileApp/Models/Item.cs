@@ -1,16 +1,20 @@
 ﻿using ReactiveUI;
+using SQLite;
 
 namespace FloralMobileApp.Models
 {
+    [Table("Items")]
     public class Item : ReactiveObject
     {
-        public string Id { get; set; }
-        public string Title { get; set; }
+        [PrimaryKey, AutoIncrement, Column("Id")]
+        public int Id { get; set; }
+        public string Content { get; set; }
         public bool IsCompleted
         {
             get => _isCompleted;
             set => this.RaiseAndSetIfChanged(ref _isCompleted, value);
         }
         private bool _isCompleted;
+        public string Category { get; set; }
     }
 }

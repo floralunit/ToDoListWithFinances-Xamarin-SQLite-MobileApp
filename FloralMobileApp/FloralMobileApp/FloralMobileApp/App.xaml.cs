@@ -2,25 +2,33 @@
 using FloralMobileApp.Views;
 using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using FloralMobileApp.ViewModels;
-using ReactiveUI;
-using Sextant;
-using Sextant.XamForms;
-using Splat;
-using static Sextant.Sextant;
+using System.IO;
 
 namespace FloralMobileApp
 {
     public partial class App : Application
     {
-
+        public const string DATABASE_NAME = "floralHelper.db";
+        public static DataStore _db;
+        public static DataStore Db
+        {
+            get
+            {
+                if (_db == null)
+                {
+                    _db = new DataStore(
+                        Path.Combine(
+                            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DATABASE_NAME));
+                }
+                return _db;
+            }
+        }
         public App()
         {
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            DependencyService.Register<IMessageService, MessageService>();
             InitializeComponent();
-            DependencyService.Register<MockDataStore>();
+            Routing.RegisterRoute(nameof(AddEditItemPage), typeof(AddEditItemPage));
+            DependencyService.Register<IMessageService, MessageService>();
+            DependencyService.Register<DataStore>();
 
             MainPage = new AppShell();
         }

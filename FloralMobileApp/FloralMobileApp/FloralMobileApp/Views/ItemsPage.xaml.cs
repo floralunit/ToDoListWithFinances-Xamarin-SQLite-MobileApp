@@ -13,13 +13,12 @@ namespace FloralMobileApp.Views
         public ItemsPage()
         {
             InitializeComponent();
-            DisplayAlert("Уведомление", "Пришло новое сообщение во view", "ОK");
             BindingContext = _viewModel = new ItemsViewModel();
         }
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.OnAppearing();
+            _viewModel.OnAppearingAsync();
         }
     }
 }

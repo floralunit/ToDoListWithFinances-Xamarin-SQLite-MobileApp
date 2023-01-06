@@ -31,7 +31,7 @@
                             </Frame.Triggers>
                             <StackLayout Orientation="Horizontal" x:DataType="model:Item">
                                 <CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}"/>
-                                <Label Text="{Binding Title}"
+                                <Label Text="{Binding Content}"
                                 HorizontalOptions="FillAndExpand"
                                 FontAttributes="Bold"
                                 VerticalOptions="Center"/>
