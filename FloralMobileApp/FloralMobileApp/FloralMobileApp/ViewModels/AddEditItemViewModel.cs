@@ -4,8 +4,6 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using FloralMobileApp.Services;
 using FloralMobileApp.Models;
-using ReactiveUI;
-using Sextant;
 using Xamarin.Forms;
 using System.Diagnostics;
 
@@ -81,7 +79,6 @@ namespace FloralMobileApp.ViewModels
             }
 
             await App.Db.AddOrUpdateItemAsync(itemNew);
-            await MessageService.ShowAsync(itemNew.IsCompleted.ToString());
 
             await Shell.Current.GoToAsync("..");
         }

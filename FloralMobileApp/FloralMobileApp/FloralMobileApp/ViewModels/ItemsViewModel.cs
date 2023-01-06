@@ -32,6 +32,7 @@ namespace FloralMobileApp.ViewModels
         public Command AddCommand { get; }
         public Command<Item> ViewCommand { get; }
         public Command<Item> DeleteCommand { get; }
+        public Command<Item> IsCheckedChangedCommand { get; }
 
         #endregion
 
@@ -45,8 +46,7 @@ namespace FloralMobileApp.ViewModels
             DeleteCommand = new Command<Item>(OnDeleteItem);
             AddCommand = new Command(OnAddItem);
             ViewCommand = new Command<Item>(OnItemSelected);
-            string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            MessageService.ShowAsync(folderPath);
+            IsCheckedChangedCommand = new Command<Item>(IsCheckedChanged);
         }
 
         #endregion
@@ -95,6 +95,10 @@ namespace FloralMobileApp.ViewModels
         {
             await App.Db.DeleteItemAsync(item);
             await ExecuteLoadItemsCommand();
+        }
+        private async void IsCheckedChanged(Item item)
+        {
+            await App.Db.AddOrUpdateItemAsync(item);
         }
 
         #endregion
