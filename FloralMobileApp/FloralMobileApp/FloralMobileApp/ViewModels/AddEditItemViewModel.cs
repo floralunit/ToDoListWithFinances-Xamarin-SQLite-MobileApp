@@ -12,16 +12,15 @@ using System.Diagnostics;
 namespace FloralMobileApp.ViewModels
 {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
-    public class ItemDetailViewModel : BaseViewModel
+    public class AddEditItemViewModel : BaseViewModel
     {
         #region Properties
-
-        public string Title
+        public string Content
         {
-            get => title;
-            set => SetProperty(ref title, value);
+            get => content;
+            set => SetProperty(ref content, value);
         }
-        public string ItemId
+        public int ItemId
         {
             get
             {
@@ -33,9 +32,9 @@ namespace FloralMobileApp.ViewModels
                 LoadItemId(value);
             }
         }
-        public string Id { get; set; }
-        private string itemId;
-        private string title;
+        public int Id { get; set; }
+        private int itemId;
+        private string content;
 
         #endregion
 
@@ -46,7 +45,7 @@ namespace FloralMobileApp.ViewModels
         #endregion
 
         #region Constructors
-        public ItemDetailViewModel()
+        public AddEditItemViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
@@ -60,27 +59,29 @@ namespace FloralMobileApp.ViewModels
 
         private bool ValidateSave()
         {
-            return !string.IsNullOrEmpty(Title);
+            return !string.IsNullOrEmpty(Content);
+            //return true;
         }
         private async void OnSave()
         {
-            if (!string.IsNullOrEmpty(ItemId))
+            Item itemNew;
+            if (ItemId != 0)
             {
-                var oldItem = await DataStore.GetItemAsync(ItemId);
-                oldItem.Title = Title;
-                await DataStore.UpdateItemAsync(oldItem);
+                itemNew = await App.Db.GetItemAsync(ItemId);
+                itemNew.Content = Content;
             }
             else
             {
-                Item newItem = new Item()
+                var item = new Item()
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    Title = Title,
+                    Content = Content,
                     IsCompleted = false,
                 };
-
-                await DataStore.AddItemAsync(newItem);
+                itemNew = item;
             }
+
+            await App.Db.AddOrUpdateItemAsync(itemNew);
+            await MessageService.ShowAsync(itemNew.IsCompleted.ToString());
 
             await Shell.Current.GoToAsync("..");
         }
@@ -89,13 +90,13 @@ namespace FloralMobileApp.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
-        public async void LoadItemId(string itemId)
+        public async void LoadItemId(int itemId)
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
+                var item = await App.Db.GetItemAsync(itemId);
                 Id = item.Id;
-                Title = item.Title;
+                Content = item.Content;
                 IsCompleted = item.IsCompleted;
             }
             catch (Exception)
