@@ -23,7 +23,9 @@ namespace FloralMobileApp
                 var menuItem = sender as MenuItem;
                 if (menuItem != null)
                 {
-                    await Shell.Current.GoToAsync($"{nameof(ItemsPage)}?{nameof(ItemsViewModel.MenuTitle)}={menuItem.Text}");
+                    Shell.Current.CurrentItem.CurrentItem.Items.Add(new ItemsPage(menuItem.Text));
+                    Shell.Current.CurrentItem.CurrentItem.Items.RemoveAt(0);
+                    Shell.Current.FlyoutIsPresented = false;
                 }
             }
             catch(Exception ex)

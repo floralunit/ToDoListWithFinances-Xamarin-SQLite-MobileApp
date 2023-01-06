@@ -9,7 +9,6 @@ using System.Linq;
 
 namespace FloralMobileApp.ViewModels
 {
-    [QueryProperty(nameof(MenuTitle), nameof(MenuTitle))]
     public class ItemsViewModel : BaseViewModel
     {
         #region Properties
@@ -52,8 +51,10 @@ namespace FloralMobileApp.ViewModels
 
         #region Constructors
 
-        public ItemsViewModel()
+        public ItemsViewModel(string menuTitle)
         {
+            Title = menuTitle;
+            MenuTitle = menuTitle;
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             DeleteCommand = new Command<Item>(OnDeleteItem);

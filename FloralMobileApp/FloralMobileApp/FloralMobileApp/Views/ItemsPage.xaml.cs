@@ -8,10 +8,10 @@ namespace FloralMobileApp.Views
     public partial class ItemsPage
     {
         ItemsViewModel _viewModel;
-        public ItemsPage()
+        public ItemsPage(string menuTitle)
         {
             InitializeComponent();
-            BindingContext = _viewModel = new ItemsViewModel();
+            BindingContext = _viewModel = new ItemsViewModel(menuTitle);
         }
         protected override void OnAppearing()
         {
