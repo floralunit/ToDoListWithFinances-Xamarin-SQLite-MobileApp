@@ -5,26 +5,29 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
     xmlns:vm="clr-namespace:FloralMobileApp.ViewModels"
+    Title="Редактор"
+    BackgroundColor="{StaticResource Main}"
     x:TypeArguments="vm:AddEditItemViewModel">
     
-    <rxui:ReactiveContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding CancelCommand}" Text="Close" />
-    </rxui:ReactiveContentPage.ToolbarItems>
     <StackLayout>
-        <Label Text="Item"
-               FontSize="Title"
+        <Label Text="𓆏"
+               FontSize="40"
+               TextColor="{StaticResource Primary}"
                Padding="20"
                HorizontalOptions="Center"/>
         <Frame Style="{StaticResource CardFrameStyle}"
                Margin="10"
                VerticalOptions="Start">
             <StackLayout
+                BackgroundColor="{StaticResource Main}"
                 HorizontalOptions="FillAndExpand">
-                <Entry Placeholder="Title"
+                <Entry Placeholder="..."
+                       TextColor="{StaticResource Primary}"
+                       FontSize="25"
                        Text="{Binding Content}" />
                 <Button Command="{Binding SaveCommand}"
-                        Style="{StaticResource MainButtonStyle}"
-                        Text="Save"/>
+                        Style="{StaticResource MainButtonStyle}"           
+                        Text="Сохранить"/>
             </StackLayout>
         </Frame>
     </StackLayout>

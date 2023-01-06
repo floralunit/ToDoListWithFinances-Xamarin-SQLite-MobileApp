@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             HeightRequest="170"
+             x:Class="FloralMobileApp.Views.HeaderContentView">
+    <ContentView.Content>
+        <Grid HorizontalOptions="FillAndExpand"
+VerticalOptions="FillAndExpand">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+
+            <Image Aspect="AspectFill"
+                   Source="header.jpeg"
+                   Grid.ColumnSpan="5"
+                   Grid.RowSpan="4"
+                   Opacity="0.6" />
+
+            <controls:CircleImage Source="user.jpg" WidthRequest="100" 
+                                  Grid.Column="1" 
+                                  Grid.Row="1"
+                                  HorizontalOptions="Start"
+                                  VerticalOptions="End"/>
+
+            <StackLayout VerticalOptions="CenterAndExpand" Grid.Row="1" Margin="10,0,0,0"
+                         Grid.Column="2" Grid.ColumnSpan="3" Orientation="Vertical">
+                <Label
+                    HorizontalTextAlignment="Start"
+                    VerticalTextAlignment="Center"
+                    TextColor="White"
+                    Text="Xamarin Guy"/>
+
+                <Label 
+                    HorizontalTextAlignment="Start"
+                    VerticalTextAlignment="Center"
+                    TextColor="White" Text="something@gmail.com"/>
+            </StackLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

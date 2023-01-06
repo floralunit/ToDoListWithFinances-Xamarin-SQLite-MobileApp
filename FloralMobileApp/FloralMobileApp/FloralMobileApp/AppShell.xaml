@@ -2,7 +2,9 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:FloralMobileApp.Views"
+       xmlns:sys="clr-namespace:System;assembly=mscorlib"
        Title="FloralMobileApp"
+       FlyoutBackgroundColor="{StaticResource Main}"
        x:Class="FloralMobileApp.AppShell">
 
     <!--
@@ -14,12 +16,12 @@
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
-                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource MainDarker}" />
                 <Setter Property="Shell.ForegroundColor" Value="White" />
                 <Setter Property="Shell.TitleColor" Value="White" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
-                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource MainDarker}" />
                 <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
                 <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
                 <Setter Property="Shell.TabBarTitleColor" Value="White"/>
@@ -46,7 +48,7 @@
                             </VisualState>
                             <VisualState x:Name="Selected">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                    <Setter Property="BackgroundColor" Value="{StaticResource MainLighter}" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -73,24 +75,31 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <!-- 
-        When the Flyout is visible this defines the content to display in the flyout.
-        FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
-        https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
-    -->
+    <Shell.FlyoutHeader>
+        <local:HeaderContentView/>
+    </Shell.FlyoutHeader>
+
     <FlyoutItem Title="About" Icon="icon_about.png">
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>
 
-    <MenuItem Text="Дневник" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="icon_feed.png" />
-    <MenuItem Text="Покупки" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="icon_feed.png"/>
-    <MenuItem Text="Планы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="icon_feed.png"/>
-    <MenuItem Text="Глобальные планы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="icon_feed.png"/>
-    <MenuItem Text="Фотки" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="icon_feed.png"/>
-    <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="icon_feed.png"/>
-    
-    <TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
-    </TabBar>
+    <MenuItem Text="Дневник" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="diary.png" />
+    <MenuItem Text="Покупки" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="shopping.png"/>
+    <MenuItem Text="Планы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="note.png"/>
+    <MenuItem Text="Глобальные планы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="note.png"/>
+    <MenuItem Text="Фотки" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="camera.png"/>
 
+    <Shell.FlyoutFooterTemplate>
+        <DataTemplate>
+            <StackLayout>
+                <Label Text="floral.dev"
+                       TextColor="{StaticResource Primary}"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+                <Label Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='{0:MMMM dd, yyyy}'}"
+                       TextColor="{StaticResource Primary}"
+                       HorizontalOptions="Center" />
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutFooterTemplate>
 </Shell>

@@ -4,26 +4,35 @@
              x:Class="FloralMobileApp.App">
     <Application.Resources>
         <ResourceDictionary>
+            <Color x:Key="Primary">#e8eddf</Color>
+            <Color x:Key="Main">#343a40</Color>
+            <Color x:Key="MainLighter">#495057</Color>
+            <Color x:Key="MainDarker">#212529</Color>
+            <Color x:Key="Secondary">#f5cb5c</Color>
+            
             <Style x:Key="CardFrameStyle" TargetType="Frame">
                 <Setter Property="HasShadow" Value="False" />
-                <Setter Property="BorderColor"  Value="Black" />
+                <Setter Property="BorderColor"  Value="#6c757d" />
                 <Setter Property="Padding" Value="10" />
+                <Setter Property="Background" Value="#343a40"></Setter>
             </Style>
+            
             <Style x:Key="MainButtonStyle" TargetType="Button">
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="BackgroundColor"  Value="Black" />
+                <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                <Setter Property="BackgroundColor"  Value="{StaticResource Secondary}" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
             </Style>
             <Style x:Key="CircularButtonStyle" TargetType="Button">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="BackgroundColor"  Value="Black" />
                 <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="CornerRadius" Value="40" />
-                <Setter Property="WidthRequest" Value="80" />
-                <Setter Property="HeightRequest" Value="80" />
+                <Setter Property="CornerRadius" Value="50" />
+                <Setter Property="WidthRequest" Value="70" />
+                <Setter Property="HeightRequest" Value="70" />
                 <Setter Property="FontSize" Value="50" />
+                <Setter Property="HorizontalOptions" Value="End" />
+                <Setter Property="Padding" Value="0" />
             </Style>
-            <Color x:Key="Primary">#2196F3</Color>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
@@ -31,7 +40,7 @@
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Disabled">
@@ -42,6 +51,9 @@
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </Setter>
+            </Style>
+            <Style TargetType="CheckBox">
+                <Setter Property="Color" Value="White"></Setter>
             </Style>
         </ResourceDictionary>
     </Application.Resources>
