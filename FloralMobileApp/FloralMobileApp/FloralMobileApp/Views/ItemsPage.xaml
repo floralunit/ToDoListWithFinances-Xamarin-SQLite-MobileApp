@@ -7,7 +7,7 @@
     xmlns:vm="clr-namespace:FloralMobileApp.ViewModels" xmlns:model="clr-namespace:FloralMobileApp.Models"
     xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
     x:Name="homePage"
-    Title="Reactive ToDo"
+    Title="{Binding Title}"
     x:TypeArguments="vm:ItemsViewModel">
     
     <StackLayout Padding="20">

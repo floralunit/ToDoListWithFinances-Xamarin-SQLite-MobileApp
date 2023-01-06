@@ -5,9 +5,11 @@ using Xamarin.Forms;
 using FloralMobileApp.Views;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Linq;
 
 namespace FloralMobileApp.ViewModels
 {
+    [QueryProperty(nameof(MenuTitle), nameof(MenuTitle))]
     public class ItemsViewModel : BaseViewModel
     {
         #region Properties
@@ -22,6 +24,18 @@ namespace FloralMobileApp.ViewModels
                 OnItemSelected(value);
             }
         }
+        public string MenuTitle
+        {
+            get
+            {
+                return menuTitle;
+            }
+            set
+            {
+                menuTitle = value;
+            }
+        }
+        private string menuTitle;
         private Item _selectedItem;
 
         #endregion
@@ -40,7 +54,6 @@ namespace FloralMobileApp.ViewModels
 
         public ItemsViewModel()
         {
-            Title = "Browse";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             DeleteCommand = new Command<Item>(OnDeleteItem);
@@ -56,12 +69,13 @@ namespace FloralMobileApp.ViewModels
         async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
+            Title = MenuTitle;
 
             try
             {
                 Items.Clear();
                 var items = await App.Db.GetItemsAsync();
-                foreach (var item in items)
+                foreach (var item in items.Where(x => x.Category == MenuTitle))
                 {
                     Items.Add(item);
                 }
@@ -83,7 +97,7 @@ namespace FloralMobileApp.ViewModels
         }
         private async void OnAddItem(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(AddEditItemPage));
+            await Shell.Current.GoToAsync($"{nameof(AddEditItemPage)}?{nameof(AddEditItemViewModel.MenuTitle)}={MenuTitle}");
         }
         async void OnItemSelected(Item item)
         {

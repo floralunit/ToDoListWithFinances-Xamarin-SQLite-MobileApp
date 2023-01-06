@@ -27,6 +27,8 @@ namespace FloralMobileApp
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(AddEditItemPage), typeof(AddEditItemPage));
+            Routing.RegisterRoute(nameof(ItemsPage), typeof(ItemsPage));
+
             DependencyService.Register<IMessageService, MessageService>();
             DependencyService.Register<DataStore>();
 

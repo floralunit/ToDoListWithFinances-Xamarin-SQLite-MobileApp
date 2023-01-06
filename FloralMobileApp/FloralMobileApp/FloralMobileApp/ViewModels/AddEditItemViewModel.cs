@@ -10,6 +10,7 @@ using System.Diagnostics;
 namespace FloralMobileApp.ViewModels
 {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
+    [QueryProperty(nameof(MenuTitle), nameof(MenuTitle))]
     public class AddEditItemViewModel : BaseViewModel
     {
         #region Properties
@@ -30,6 +31,18 @@ namespace FloralMobileApp.ViewModels
                 LoadItemId(value);
             }
         }
+        public string MenuTitle
+        {
+            get
+            {
+                return menuTitle;
+            }
+            set
+            {
+                menuTitle = value;
+            }
+        }
+        private string menuTitle;
         public int Id { get; set; }
         private int itemId;
         private string content;
@@ -58,7 +71,6 @@ namespace FloralMobileApp.ViewModels
         private bool ValidateSave()
         {
             return !string.IsNullOrEmpty(Content);
-            //return true;
         }
         private async void OnSave()
         {
@@ -74,6 +86,7 @@ namespace FloralMobileApp.ViewModels
                 {
                     Content = Content,
                     IsCompleted = false,
+                    Category = MenuTitle
                 };
                 itemNew = item;
             }
