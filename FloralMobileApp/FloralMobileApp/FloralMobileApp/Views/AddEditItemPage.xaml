@@ -21,10 +21,11 @@
             <StackLayout
                 BackgroundColor="{StaticResource Main}"
                 HorizontalOptions="FillAndExpand">
-                <Entry Placeholder="..."
-                       TextColor="{StaticResource Primary}"
-                       FontSize="25"
-                       Text="{Binding Content}" />
+                <Entry x:Name="entry"
+                        Placeholder="..."
+                        TextColor="{StaticResource Primary}"
+                        FontSize="25"
+                        Text="{Binding Content}" />
                 <Button Command="{Binding SaveCommand}"
                         Style="{StaticResource MainButtonStyle}"           
                         Text="Сохранить"/>

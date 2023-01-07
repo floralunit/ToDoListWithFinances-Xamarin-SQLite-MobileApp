@@ -21,12 +21,14 @@ namespace FloralMobileApp
             try
             {
                 var menuItem = sender as MenuItem;
-                if (menuItem != null)
-                {
-                    Shell.Current.CurrentItem.CurrentItem.Items.Add(new ItemsPage(menuItem.Text));
-                    Shell.Current.CurrentItem.CurrentItem.Items.RemoveAt(0);
-                    Shell.Current.FlyoutIsPresented = false;
+                if (menuItem.Text == "О программе") {
+                    Shell.Current.CurrentItem.CurrentItem.Items.Add(new AboutPage());
                 }
+                else if (menuItem != null) {
+                    Shell.Current.CurrentItem.CurrentItem.Items.Add(new ItemsPage(menuItem.Text));
+                }
+                Shell.Current.CurrentItem.CurrentItem.Items.RemoveAt(0);
+                Shell.Current.FlyoutIsPresented = false;
             }
             catch(Exception ex)
             {

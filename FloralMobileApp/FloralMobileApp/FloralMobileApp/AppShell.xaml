@@ -68,6 +68,11 @@
                                     <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
                                 </VisualState.Setters>
                             </VisualState>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource MainLighter}" />
+                                </VisualState.Setters>
+                            </VisualState>
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </Setter>
@@ -79,8 +84,8 @@
         <local:HeaderContentView/>
     </Shell.FlyoutHeader>
 
-    <FlyoutItem Title="About" Icon="icon_about.png">
-        <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
+    <FlyoutItem FlyoutItemIsVisible="False"  x:Name="aboutItem">
+        <ShellContent Title="Shit" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}"></ShellContent>
     </FlyoutItem>
 
     <MenuItem Text="Дневник" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="diary.png" />
@@ -88,6 +93,7 @@
     <MenuItem Text="Планы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="note.png"/>
     <MenuItem Text="Глобальные планы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="note.png"/>
     <MenuItem Text="Фотки" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="camera.png"/>
+    <MenuItem Text="О программе" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="icon_about.png" />
 
     <Shell.FlyoutFooterTemplate>
         <DataTemplate>

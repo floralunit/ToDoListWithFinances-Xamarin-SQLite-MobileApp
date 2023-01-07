@@ -1,4 +1,6 @@
 ﻿using FloralMobileApp.ViewModels;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace FloralMobileApp.Views
 {
@@ -8,6 +10,17 @@ namespace FloralMobileApp.Views
         {
             InitializeComponent();
             BindingContext = new AddEditItemViewModel();
+        }
+        protected async override void OnAppearing()
+        {
+            await Task.Run(async () =>
+            {
+                await Task.Delay(100);
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    entry.Focus();
+                });
+            });
         }
     }
 }
