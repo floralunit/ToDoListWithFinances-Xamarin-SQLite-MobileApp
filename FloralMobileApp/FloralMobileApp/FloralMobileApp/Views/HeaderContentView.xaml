@@ -6,7 +6,7 @@
              x:Class="FloralMobileApp.Views.HeaderContentView">
     <ContentView.Content>
         <Grid HorizontalOptions="FillAndExpand"
-VerticalOptions="FillAndExpand">
+              VerticalOptions="FillAndExpand">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10"/>
@@ -23,12 +23,12 @@ VerticalOptions="FillAndExpand">
             </Grid.RowDefinitions>
 
             <Image Aspect="AspectFill"
-                   Source="header.jpeg"
+                   Source="header.jpg"
                    Grid.ColumnSpan="5"
                    Grid.RowSpan="4"
                    Opacity="0.6" />
 
-            <controls:CircleImage Source="user.jpg" WidthRequest="100" 
+            <controls:CircleImage Source="user.jpg" WidthRequest="80" 
                                   Grid.Column="1" 
                                   Grid.Row="1"
                                   HorizontalOptions="Start"
@@ -40,12 +40,12 @@ VerticalOptions="FillAndExpand">
                     HorizontalTextAlignment="Start"
                     VerticalTextAlignment="Center"
                     TextColor="White"
-                    Text="Xamarin Guy"/>
+                    Text="No Suicide"/>
 
                 <Label 
                     HorizontalTextAlignment="Start"
                     VerticalTextAlignment="Center"
-                    TextColor="White" Text="something@gmail.com"/>
+                    TextColor="White" Text="𓁿 ཨོཾ་མ་ཎི་པ་དྨེ་ཧཱུྃ། 𓂀"/>
             </StackLayout>
         </Grid>
     </ContentView.Content>

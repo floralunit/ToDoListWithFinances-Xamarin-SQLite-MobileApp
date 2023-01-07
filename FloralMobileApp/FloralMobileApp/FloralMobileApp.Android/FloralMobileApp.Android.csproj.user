@@ -4,5 +4,6 @@
     <SelectedDevice>Xiaomi Redmi Note 9 Pro</SelectedDevice>
     <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
     <ActiveDebugProfile>Xiaomi Redmi Note 9 Pro</ActiveDebugProfile>
+    <AndroidDesignerPreferredTheme>MainTheme</AndroidDesignerPreferredTheme>
   </PropertyGroup>
 </Project>

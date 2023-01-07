@@ -60,6 +60,7 @@
             Custom Style you can apply to any Flyout Item
             -->
             <Style Class="MenuItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+                
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
@@ -88,12 +89,12 @@
         <ShellContent Title="Shit" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}"></ShellContent>
     </FlyoutItem>
 
-    <MenuItem Text="Дневник" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="diary.png" />
+    <MenuItem Text="Дневник" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="diary.png"/>
     <MenuItem Text="Покупки" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="shopping.png"/>
-    <MenuItem Text="Планы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="note.png"/>
-    <MenuItem Text="Глобальные планы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="note.png"/>
+    <MenuItem Text="Планы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="plans.png"/>
+    <MenuItem Text="Глобальные планы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="thinking.png"/>
     <MenuItem Text="Фотки" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="camera.png"/>
-    <MenuItem Text="О программе" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="icon_about.png" />
+    <MenuItem Text="О программе" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="about.png" />
 
     <Shell.FlyoutFooterTemplate>
         <DataTemplate>
