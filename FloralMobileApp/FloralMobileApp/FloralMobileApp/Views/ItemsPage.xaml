@@ -6,6 +6,11 @@
     xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
     xmlns:vm="clr-namespace:FloralMobileApp.ViewModels" xmlns:model="clr-namespace:FloralMobileApp.Models"
     xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+    xmlns:d="clr-namespace:Basil.Behaviors.Animations.Decorators;assembly=Basil.Behaviors" 
+    xmlns:s="clr-namespace:Basil.Behaviors.Animations.Standart;assembly=Basil.Behaviors" 
+    xmlns:h="clr-namespace:Basil.Behaviors.Events.Handlers;assembly=Basil.Behaviors" 
+    xmlns:e="clr-namespace:Basil.Behaviors.Events;assembly=Basil.Behaviors" 
+    xmlns:c="clr-namespace:Basil.Behaviors.Animations.Custom;assembly=Basil.Behaviors"
     x:Name="homePage"
     BackgroundColor="{StaticResource Main}"
     Title="{Binding Title}"
@@ -62,6 +67,17 @@
         </RefreshView>
         <Button Style="{StaticResource CircularButtonStyle}"
                 Command="{Binding AddCommand}"
-                Text="+"/>
+                Text="+">
+            <Button.Behaviors>
+                <e:EventToMultipleHandlersBehavior EventName="BindingContextChanged">
+                    <d:CycledAnimationDecorator Cycles="10">
+                        <h:SequenceHandlerExecutor WaitResult="True">
+                            <s:ScaleAnimation Length="400" Scale="0.7" />
+                            <s:ScaleAnimation Length="500" Scale="1" Easing="{x:Static Easing.BounceOut}" />
+                        </h:SequenceHandlerExecutor>
+                    </d:CycledAnimationDecorator>
+                </e:EventToMultipleHandlersBehavior>
+            </Button.Behaviors>
+        </Button>
     </StackLayout>
 </rxui:ReactiveContentPage>
