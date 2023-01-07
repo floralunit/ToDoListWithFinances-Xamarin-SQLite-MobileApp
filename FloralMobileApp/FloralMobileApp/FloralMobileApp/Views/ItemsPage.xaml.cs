@@ -13,10 +13,10 @@ namespace FloralMobileApp.Views
             InitializeComponent();
             BindingContext = _viewModel = new ItemsViewModel(menuTitle);
         }
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.OnAppearingAsync();
+            await _viewModel.OnAppearingAsync();
         }
     }
 }

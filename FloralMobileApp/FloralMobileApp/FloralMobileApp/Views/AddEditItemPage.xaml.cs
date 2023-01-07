@@ -16,7 +16,7 @@ namespace FloralMobileApp.Views
             await Task.Run(async () =>
             {
                 await Task.Delay(100);
-                Device.BeginInvokeOnMainThread(async () =>
+                Device.BeginInvokeOnMainThread(() =>
                 {
                     entry.Focus();
                 });

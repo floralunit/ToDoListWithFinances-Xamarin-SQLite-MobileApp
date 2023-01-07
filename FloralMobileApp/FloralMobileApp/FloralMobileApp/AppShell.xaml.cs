@@ -16,7 +16,7 @@ namespace FloralMobileApp
             Routing.RegisterRoute(nameof(ItemsPage), typeof(ItemsPage));
         }
 
-        private async void OnMenuItemClicked(object sender, EventArgs e)
+        private void OnMenuItemClicked(object sender, EventArgs e)
         {
             try
             {
