@@ -91,7 +91,7 @@ namespace FloralMobileApp.ViewModels
         }
         public async Task OnAppearingAsync()
         {
-            await App.Db.CreateTable();
+            await App.Db.CreateTableItems();
             IsBusy = true;
             SelectedItem = null;
         }

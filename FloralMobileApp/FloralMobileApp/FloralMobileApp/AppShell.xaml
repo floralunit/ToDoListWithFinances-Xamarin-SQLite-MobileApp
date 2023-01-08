@@ -89,10 +89,11 @@
         <ShellContent Title="Shit" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}"></ShellContent>
     </FlyoutItem>
 
-    <MenuItem Text="Дневник" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="diary.png"/>
+    <MenuItem Text="Расходы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="expense.png"/>
     <MenuItem Text="Покупки" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="shopping.png"/>
     <MenuItem Text="Планы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="plans.png"/>
     <MenuItem Text="Глобальные планы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="thinking.png"/>
+    <MenuItem Text="Дневник" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="diary.png"/>
     <MenuItem Text="Фотки" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="camera.png"/>
     <MenuItem Text="О программе" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="about.png" />
 
