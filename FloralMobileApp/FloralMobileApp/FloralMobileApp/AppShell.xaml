@@ -89,13 +89,90 @@
         <ShellContent Title="Shit" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}"></ShellContent>
     </FlyoutItem>
 
-    <MenuItem Text="Расходы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="expense.png"/>
-    <MenuItem Text="Покупки" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="shopping.png"/>
-    <MenuItem Text="Планы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="plans.png"/>
-    <MenuItem Text="Глобальные планы" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="thinking.png"/>
-    <MenuItem Text="Дневник" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="diary.png"/>
-    <MenuItem Text="Фотки" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="camera.png"/>
-    <MenuItem Text="О программе" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IconImageSource="about.png" />
+    <MenuItem Text="Калькулятор расходов" Clicked="OnMenuItemClicked">
+        <Shell.MenuItemTemplate>
+            <DataTemplate>
+                <StackLayout Orientation="Horizontal" BackgroundColor="{Binding BindingContext.ExpenseColor}">
+                    <Image Source="expense.png" WidthRequest="25" Margin="15"/>
+                    <Label Text="Калькулятор расходов" FontSize="15" Margin="15" TextColor="{StaticResource Primary}"></Label>
+                </StackLayout>
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+
+    <MenuItem Text="Покупки" Clicked="OnMenuItemClicked">
+        <Shell.MenuItemTemplate>
+            <DataTemplate>
+                <StackLayout Orientation="Horizontal" BackgroundColor="{Binding BindingContext.PurchaseColor}">
+                    <Image Source="shopping.png" WidthRequest="25" Margin="15"/>
+                    <Label Text="Покупки" FontSize="15" Margin="15" TextColor="{StaticResource Primary}"></Label>
+                </StackLayout>
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+
+    <MenuItem Text="Планы" Clicked="OnMenuItemClicked">
+        <Shell.MenuItemTemplate>
+            <DataTemplate>
+                <StackLayout Orientation="Horizontal" BackgroundColor="{Binding BindingContext.PlansColor}">
+                    <Image Source="plans.png" WidthRequest="25" Margin="15"/>
+                    <Label Text="Планы" FontSize="15" Margin="15" TextColor="{StaticResource Primary}"></Label>
+                </StackLayout>
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+
+    <MenuItem Text="Глобальные планы" Clicked="OnMenuItemClicked">
+        <Shell.MenuItemTemplate>
+            <DataTemplate>
+                <StackLayout Orientation="Horizontal" BackgroundColor="{Binding BindingContext.GlobalPlansColor}">
+                    <Image Source="thinking.png" WidthRequest="25" Margin="15"/>
+                    <Label Text="Глобальные планы" FontSize="15" Margin="15" TextColor="{StaticResource Primary}"></Label>
+                </StackLayout>
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+
+    <MenuItem Text="Дневник" Clicked="OnMenuItemClicked">
+        <Shell.MenuItemTemplate>
+            <DataTemplate>
+                <StackLayout Orientation="Horizontal" BackgroundColor="{Binding BindingContext.DiaryColor}">
+                    <Image Source="diary.png" WidthRequest="25" Margin="15"/>
+                    <Label Text="Дневник" FontSize="15" Margin="15" TextColor="{StaticResource Primary}"></Label>
+                </StackLayout>
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+
+    <MenuItem Text="Идеи для фотографий" Clicked="OnMenuItemClicked">
+        <Shell.MenuItemTemplate>
+            <DataTemplate>
+                <StackLayout Orientation="Horizontal" BackgroundColor="{Binding BindingContext.CameraColor}">
+                    <Image Source="camera.png" WidthRequest="25" Margin="15"/>
+                    <Label Text="Идеи для фотографий" FontSize="15" Margin="15" TextColor="{StaticResource Primary}"></Label>
+                </StackLayout>
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+
+    <MenuItem>
+        <Shell.MenuItemTemplate>
+            <DataTemplate>
+                <Label BackgroundColor="#42484E" HeightRequest="1"></Label>
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+
+    <MenuItem Text="О программе" Clicked="OnMenuItemClicked">
+        <Shell.MenuItemTemplate>
+            <DataTemplate>
+                <StackLayout Orientation="Horizontal" BackgroundColor="{Binding BindingContext.AboutColor}">
+                    <Image Source="about.png" WidthRequest="25" Margin="15"/>
+                    <Label Text="О программе" FontSize="15" Margin="15" TextColor="{StaticResource Primary}"></Label>
+                </StackLayout>
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
 
     <Shell.FlyoutFooterTemplate>
         <DataTemplate>
