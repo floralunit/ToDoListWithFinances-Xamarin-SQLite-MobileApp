@@ -8,8 +8,9 @@
              xmlns:h="clr-namespace:Basil.Behaviors.Events.Handlers;assembly=Basil.Behaviors" 
              xmlns:e="clr-namespace:Basil.Behaviors.Events;assembly=Basil.Behaviors" 
              xmlns:c="clr-namespace:Basil.Behaviors.Animations.Custom;assembly=Basil.Behaviors"
-             BackgroundImageSource="num.gif"
-             Title="𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏𓆏">
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             BackgroundImageSource="crossBackground.jpg"
+             Title="{Binding Title}">
     
     <ContentPage.BindingContext>
         <vm:AboutViewModel />
@@ -21,89 +22,36 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
-                </ContentView>
+    <StackLayout>
+        <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+            <ffimageloading:SvgCachedImage HeightRequest="80" Source="cow.gif" Margin="0"/>
+            <ffimageloading:SvgCachedImage HeightRequest="80" Source="angel.gif" Margin="0"/>
+            <Label Text="floral.helper" FontSize="Title" TextColor="{StaticResource Primary}" HorizontalOptions="Center">
+                <Label.Behaviors>
+                    <e:EventToMultipleHandlersBehavior EventName="BindingContextChanged">
+                        <d:CycledAnimationDecorator Cycles="50">
+                            <h:SequenceHandlerExecutor WaitResult="True">
+                                <s:ScaleAnimation Length="400" Scale="0.7" />
+                                <s:ScaleAnimation Length="500" Scale="1" Easing="{x:Static Easing.BounceOut}" />
+                            </h:SequenceHandlerExecutor>
+                        </d:CycledAnimationDecorator>
+                    </e:EventToMultipleHandlersBehavior>
+                </Label.Behaviors>
+            </Label>
+            <Label Text="Эта программа написана Аней (мной) и предназначена для Ани (меня). Аня, желаю тебе хорошего дня!" FontSize="16" Padding="0,0,0,0" TextColor="{StaticResource Primary}"/>
+            <Label Text="Что тут есть?" FontSize="Medium" Padding="0,0,0,0" TextColor="{StaticResource Secondary}"/>
+            <Label Text="Калькулятор расходов" FontSize="Body" Padding="0,0,0,0" TextColor="{StaticResource Primary}" TextDecorations="Underline"/>
+            <Label Text="Здесь можно задать лимит денег на месяц, вводить свои траты каждый день, и программа рассчитает, укладываюсь ли я в лимит на сегодняшний день." FontSize="Body" Padding="0,0,0,0" TextColor="{StaticResource Primary}"/>
+            <Label Text="Остальное" FontSize="Body" Padding="0,0,0,0" TextColor="{StaticResource Primary}" TextDecorations="Underline"/>
+            <Label Text="Остальные вкладки - это списки дел с чекбоксами по разным тематикам." FontSize="Body" Padding="0,0,0,0" TextColor="{StaticResource Primary}"/>
+
+            <StackLayout>
+                <ffimageloading:SvgCachedImage HeightRequest="80" Source="comfrog.gif" Margin="0"/>
+                <Label Text="floral.dev"
+                       TextColor="{StaticResource Primary}"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
             </StackLayout>
         </StackLayout>
-        <ScrollView Grid.Row="1">
-            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-                <Label Text="Start developing now" FontSize="Title"/>
-                <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="0,0,0,0"/>
-                <Label FontSize="16" Padding="0,24,0,0">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <FormattedString.Spans>
-                                <Span Text="Learn more at "/>
-                                <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                            </FormattedString.Spans>
-                        </FormattedString>
-                    </Label.FormattedText>
-                    <Label.Behaviors>
-                        <e:EventToMultipleHandlersBehavior EventName="BindingContextChanged">
-                            <d:CycledAnimationDecorator Cycles="10">
-                                <h:SequenceHandlerExecutor WaitResult="True">
-                                    <h:ParallelHandlerExecutor WaitResult="True">
-                                        <c:BackgroundColorRAnimation Length="300" StartValue="0" EndValue="0.2"/>
-                                        <c:BackgroundColorGAnimation Length="300" StartValue="1" EndValue="0.3"/>
-                                        <c:BackgroundColorBAnimation Length="300" StartValue="1" EndValue="0.4"/>
-                                    </h:ParallelHandlerExecutor>
-                                    <h:ParallelHandlerExecutor WaitResult="True">
-                                        <c:BackgroundColorRAnimation Length="300" StartValue="0.2" EndValue="1"/>
-                                        <c:BackgroundColorGAnimation Length="300" StartValue="0.3" EndValue="0.5"/>
-                                        <c:BackgroundColorBAnimation Length="300" StartValue="0.4" EndValue="0.1"/>
-                                    </h:ParallelHandlerExecutor>
-                                    <h:ParallelHandlerExecutor WaitResult="True">
-                                        <c:BackgroundColorRAnimation Length="300" StartValue="1" EndValue="0"/>
-                                        <c:BackgroundColorGAnimation Length="300" StartValue="0.5" EndValue="1"/>
-                                        <c:BackgroundColorBAnimation Length="300" StartValue="0.1" EndValue="1"/>
-                                    </h:ParallelHandlerExecutor>
-                                </h:SequenceHandlerExecutor>
-                            </d:CycledAnimationDecorator>
-                        </e:EventToMultipleHandlersBehavior>
-                    </Label.Behaviors>
-                </Label>
-
-                <Button Margin="0,10,0,0" Text="Learn more"
-                        Command="{Binding OpenWebCommand}"
-                        BackgroundColor="{StaticResource MainLighter}"
-                        TextColor="White">
-                    <Button.Behaviors>
-                        <e:EventToMultipleHandlersBehavior EventName="BindingContextChanged">
-                            <d:CycledAnimationDecorator Cycles="10">
-                                <h:SequenceHandlerExecutor WaitResult="True">
-                                    <s:RotateAnimation Length="800" Rotation="360" />
-                                    <s:RotateAnimation Length="0" Rotation="0" />
-                                    <s:LayoutAnimation Length="200" OffsetRectangle="-10,15,20,-30" />
-                                    <s:LayoutAnimation Length="200" OffsetRectangle="10,-15,-20,30" />
-                                    <s:ScaleAnimation Length="400" Scale="0.4" />
-                                    <s:ScaleAnimation Length="500" Scale="1" Easing="{x:Static Easing.BounceOut}" />
-                                </h:SequenceHandlerExecutor>
-                            </d:CycledAnimationDecorator>
-                        </e:EventToMultipleHandlersBehavior>
-                    </Button.Behaviors>
-                </Button>
-                <Image Source="monke.jpg">
-                    <Image.Behaviors>
-                        <e:EventToMultipleHandlersBehavior EventName="BindingContextChanged">
-                            <d:CycledAnimationDecorator Cycles="10">
-                                <h:SequenceHandlerExecutor WaitResult="True">
-                                    <s:RotateAnimation Length="800" Rotation="360" />
-                                    <s:RotateAnimation Length="0" Rotation="0" />
-                                </h:SequenceHandlerExecutor>
-                            </d:CycledAnimationDecorator>
-                        </e:EventToMultipleHandlersBehavior>
-                    </Image.Behaviors>
-                </Image>
-            </StackLayout>
-        </ScrollView>
-    </Grid>
-
+    </StackLayout>
 </ContentPage>

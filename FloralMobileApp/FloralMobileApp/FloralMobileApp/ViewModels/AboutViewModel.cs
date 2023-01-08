@@ -9,7 +9,7 @@ namespace FloralMobileApp.ViewModels
     {
         public AboutViewModel()
         {
-            Title = "About";
+            Title = "ስውር አካል በተለያዩ የኢሶቴሪክ";
             OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
         }
 
