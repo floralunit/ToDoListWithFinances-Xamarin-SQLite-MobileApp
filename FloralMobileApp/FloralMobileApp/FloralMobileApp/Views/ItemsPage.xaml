@@ -18,9 +18,9 @@
 
     <StackLayout Padding="20">
         <CollectionView
-            ItemsSource="{Binding Items}"
-            SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-            SelectionMode="Single">
+            ItemsSource="{Binding Items}">
+            <!--SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+            SelectionMode="Single">-->
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical"
                                 VerticalItemSpacing="10" />

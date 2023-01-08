@@ -80,7 +80,7 @@ namespace FloralMobileApp.ViewModels
 
         public ExpenseViewModel()
         {
-            Title ="Расходы";
+            Title ="Калькулятор расходов";
             Expenses = new ObservableCollection<Expense>();
             LoadExpensesCommand = new Command(async () => await ExecuteLoadExpensesCommand());
             SpentValueChangedCommand = new Command<Expense>(SpentValueChanged);
