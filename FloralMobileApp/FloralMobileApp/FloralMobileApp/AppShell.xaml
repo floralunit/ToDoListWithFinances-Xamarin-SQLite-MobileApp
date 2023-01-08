@@ -2,7 +2,7 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:FloralMobileApp.Views"
-       xmlns:sys="clr-namespace:System;assembly=mscorlib"
+       xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:ffimageloading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
        Title="FloralMobileApp"
        FlyoutBackgroundColor="{StaticResource Main}"
        x:Class="FloralMobileApp.AppShell">
@@ -177,6 +177,7 @@
     <Shell.FlyoutFooterTemplate>
         <DataTemplate>
             <StackLayout>
+                <ffimageloading:SvgCachedImage HeightRequest="30" Source="dancing_cow.gif" Margin="0"/>
                 <Label Text="floral.dev"
                        TextColor="{StaticResource Primary}"
                        FontAttributes="Bold"
