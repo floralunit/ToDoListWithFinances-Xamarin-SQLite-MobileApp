@@ -6,10 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ViewModels\0nobnsqp.41e~" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Basil.Behaviors" Version="1.2.0.1" />
     <PackageReference Include="ReactiveUI.XamForms" Version="18.4.1" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
+    <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2545" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.4" />  
     <PackageReference Include="Xamarin.Forms.InputKit" Version="4.1.6" />
