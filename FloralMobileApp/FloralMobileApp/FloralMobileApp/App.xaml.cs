@@ -3,6 +3,8 @@ using FloralMobileApp.Views;
 using System;
 using Xamarin.Forms;
 using System.IO;
+using System.Xml.Linq;
+using System.Linq;
 
 namespace FloralMobileApp
 {
@@ -14,13 +16,31 @@ namespace FloralMobileApp
         {
             get
             {
-                if (_db == null)
-                {
+                if (_db == null) {
                     _db = new DataStore(
                         Path.Combine(
                             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DATABASE_NAME));
                 }
                 return _db;
+            }
+        }
+        public static XDocument _xdoc;
+        public static XDocument XmlDoc
+        {
+            get
+            {
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string pathFull = System.IO.Path.Combine(path, "xdoc.xml");
+
+                if (!File.Exists(pathFull)) {
+                    XDocument doc = new XDocument(new XElement("Params", new XAttribute("MonthLimit", "15000")));
+                    doc.Save(pathFull);
+                    _xdoc = doc;
+                }
+                else {
+                    _xdoc = XDocument.Load(pathFull);
+                }
+                return _xdoc;
             }
         }
         public App()
