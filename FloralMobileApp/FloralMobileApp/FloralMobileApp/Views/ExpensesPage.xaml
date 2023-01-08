@@ -28,8 +28,29 @@
                            FontSize="20"
                            FontAttributes="Bold"
                            VerticalOptions="Center"
-                           HorizontalTextAlignment="End">
+                           HorizontalTextAlignment="Center">
                     </Label>
+                    <StackLayout Orientation="Vertical">
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                            <Label Text="{Binding MonthLimitText}"
+                                   TextColor="{StaticResource Primary}"
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center">
+                            </Label>
+                            <Image x:Name="ButtonImage" WidthRequest="15" Source="editing.png" VerticalOptions="Center">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference expensePage}, Path=BindingContext.EditMonthLimitCommand}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </StackLayout>
+                        <Label Text="{Binding DayLimitText}"
+                           TextColor="{StaticResource Primary}"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center">
+                        </Label>
+                    </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="{Binding ResultText}"
                            TextColor="{StaticResource Primary}"
