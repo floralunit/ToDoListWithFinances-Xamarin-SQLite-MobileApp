@@ -16,105 +16,103 @@
                           Title="{Binding Title}"
                           x:TypeArguments="vm:ExpenseViewModel">
     <StackLayout Padding="20">
-        <RefreshView x:DataType="vm:ExpenseViewModel" Command="{Binding LoadExpensesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-                    <Label Text="{Binding MonthYear}"
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+                <Label Text="{Binding MonthYear}"
                            TextColor="{StaticResource Primary}"
                            FontSize="20"
                            FontAttributes="Bold"
                            VerticalOptions="Center"
                            HorizontalTextAlignment="Center">
-                    </Label>
-                    <StackLayout Orientation="Vertical">
-                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                            <Label Text="{Binding MonthLimitText}"
+                </Label>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                        <Label Text="{Binding MonthLimitText}"
                                    TextColor="{StaticResource Primary}"
                                    FontSize="15"
                                    FontAttributes="Bold"
                                    VerticalOptions="Center">
-                            </Label>
-                            <Image x:Name="ButtonImage" WidthRequest="15" Source="editing.png" VerticalOptions="Center">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={x:Reference expensePage}, Path=BindingContext.EditMonthLimitCommand}"/>
-                                </Image.GestureRecognizers>
-                            </Image>
-                        </StackLayout>
-                        <Label Text="{Binding DayLimitText}"
+                        </Label>
+                        <Image x:Name="ButtonImage" WidthRequest="15" Source="editing.png" VerticalOptions="Center">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference expensePage}, Path=BindingContext.EditMonthLimitCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                    <Label Text="{Binding DayLimitText}"
                            TextColor="{StaticResource Primary}"
                            FontSize="15"
                            FontAttributes="Bold"
                            VerticalOptions="Center">
-                        </Label>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="{Binding ResultText}"
+                    </Label>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding ResultText}"
                            TextColor="{StaticResource Primary}"
                            FontSize="20"
                            FontAttributes="Bold"
                            VerticalOptions="Center"
                            HorizontalTextAlignment="Start">
-                        </Label>
-                        <Label Text="{Binding CalcResult}"
+                    </Label>
+                    <Label Text="{Binding CalcResult}"
                            TextColor="{StaticResource Secondary}"
                            FontSize="30"
                            FontAttributes="Bold"
                            HorizontalOptions="FillAndExpand"
                            VerticalOptions="Center"
                            HorizontalTextAlignment="End">
-                            <Label.Behaviors>
-                                <e:EventToMultipleHandlersBehavior EventName="BindingContextChanged">
-                                    <d:CycledAnimationDecorator Cycles="1000">
-                                        <h:SequenceHandlerExecutor WaitResult="True">
-                                            <s:ScaleAnimation Length="400" Scale="0.9" />
-                                            <s:ScaleAnimation Length="500" Scale="1" Easing="{x:Static Easing.BounceOut}" />
-                                        </h:SequenceHandlerExecutor>
-                                    </d:CycledAnimationDecorator>
-                                </e:EventToMultipleHandlersBehavior>
-                            </Label.Behaviors>
-                        </Label>
-                    </StackLayout>
+                        <Label.Behaviors>
+                            <e:EventToMultipleHandlersBehavior EventName="BindingContextChanged">
+                                <d:CycledAnimationDecorator Cycles="1000">
+                                    <h:SequenceHandlerExecutor WaitResult="True">
+                                        <s:ScaleAnimation Length="400" Scale="0.9" />
+                                        <s:ScaleAnimation Length="500" Scale="1" Easing="{x:Static Easing.BounceOut}" />
+                                    </h:SequenceHandlerExecutor>
+                                </d:CycledAnimationDecorator>
+                            </e:EventToMultipleHandlersBehavior>
+                        </Label.Behaviors>
+                    </Label>
                 </StackLayout>
-                <CollectionView
+            </StackLayout>
+            <CollectionView
                     Grid.Row="1"
                     ItemsSource="{Binding Expenses}"
                     SelectionMode="Single">
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical"
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
                                 VerticalItemSpacing="10" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame Style="{StaticResource CardFrameStyle}" x:DataType="model:Expense">
-                                <StackLayout Orientation="Horizontal" x:DataType="model:Expense" BackgroundColor="{StaticResource Main}">
-                                    <Label Text="{Binding Day}"
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Style="{StaticResource CardFrameStyle}" x:DataType="model:Expense">
+                            <StackLayout Orientation="Horizontal" x:DataType="model:Expense" BackgroundColor="{StaticResource Main}">
+                                <Label Text="{Binding Day}"
                                            TextColor="{StaticResource Secondary}"
                                            FontSize="20"
                                            FontAttributes="Bold"
                                            VerticalOptions="Center">
-                                    </Label>
-                                    <Entry
+                                </Label>
+                                <Entry
                                         TextColor="{StaticResource Primary}"
                                         Text="{Binding SpentValue, Mode=TwoWay}"
                                         HorizontalTextAlignment="Center"
                                         WidthRequest="100">
-                                        <Entry.Behaviors>
-                                            <xct:EventToCommandBehavior
+                                    <Entry.Behaviors>
+                                        <xct:EventToCommandBehavior
                                                 EventName="TextChanged"
                                                 Command="{Binding Source={x:Reference expensePage}, Path=BindingContext.SpentValueChangedCommand}"
                                                 CommandParameter="{Binding}"/>
-                                        </Entry.Behaviors>
-                                    </Entry>
-                                </StackLayout>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Grid>
-        </RefreshView>
+                                    </Entry.Behaviors>
+                                </Entry>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
     </StackLayout>
 </rxui:ReactiveContentPage>

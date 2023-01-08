@@ -15,56 +15,54 @@
     BackgroundColor="{StaticResource Main}"
     Title="{Binding Title}"
     x:TypeArguments="vm:ItemsViewModel">
-    
+
     <StackLayout Padding="20">
-        <RefreshView x:DataType="vm:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-            <CollectionView
-                ItemsSource="{Binding Items}"
-                SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                SelectionMode="Single">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical"
+        <CollectionView
+            ItemsSource="{Binding Items}"
+            SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+            SelectionMode="Single">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
                                 VerticalItemSpacing="10" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame Style="{StaticResource CardFrameStyle}" x:DataType="model:Item">
-                                <Frame.Triggers>
-                                    <DataTrigger TargetType="Frame"
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Style="{StaticResource CardFrameStyle}" x:DataType="model:Item">
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame"
                                         Binding="{Binding IsCompleted, Mode=TwoWay}"
                                         Value="True">
-                                        <Setter Property="Opacity" Value="0.2" />
-                                    </DataTrigger>
-                                </Frame.Triggers>
-                            <SwipeView Background="{StaticResource Main}">
-                                <SwipeView.RightItems>
-                                    <SwipeItems>
-                                        <SwipeItem IconImageSource="delete.png"
+                                <Setter Property="Opacity" Value="0.2" />
+                            </DataTrigger>
+                        </Frame.Triggers>
+                        <SwipeView Background="{StaticResource Main}">
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem IconImageSource="delete.png"
                                                    BackgroundColor="Red"
                                                    Command="{Binding Source={x:Reference homePage}, Path=BindingContext.DeleteCommand}"
                                                    CommandParameter="{Binding}"/>
-                                    </SwipeItems>
-                                </SwipeView.RightItems>
-                                <StackLayout Orientation="Horizontal" x:DataType="model:Item" BackgroundColor="{StaticResource Main}">
-                                    <input:CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}" Type="Material" Color="{StaticResource Secondary}"
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <StackLayout Orientation="Horizontal" x:DataType="model:Item" BackgroundColor="{StaticResource Main}">
+                                <input:CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}" Type="Material" Color="{StaticResource Secondary}"
                                                 CheckChangedCommand="{Binding Source={x:Reference homePage}, Path=BindingContext.IsCheckedChangedCommand}" CommandParameter="{Binding}"/>
-                                    <Label Text="{Binding Content}"
+                                <Label Text="{Binding Content}"
                                            TextColor="{StaticResource Primary}"
                                            FontSize="20"
                                            FontAttributes="Bold"
                                            VerticalOptions="Center">
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference homePage}, Path=BindingContext.ViewCommand}"
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference homePage}, Path=BindingContext.ViewCommand}"
                                                       CommandParameter="{Binding}"/>
-                                        </Label.GestureRecognizers>
-                                    </Label>
-                                </StackLayout>
-                            </SwipeView>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </StackLayout>
+                        </SwipeView>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <Button Style="{StaticResource CircularButtonStyle}"
                 Command="{Binding AddCommand}"
                 Text="+">

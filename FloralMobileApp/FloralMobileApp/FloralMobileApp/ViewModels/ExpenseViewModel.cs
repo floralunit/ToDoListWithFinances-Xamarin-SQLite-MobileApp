@@ -120,6 +120,7 @@ namespace FloralMobileApp.ViewModels
             await App.Db.CreateTableExpenses();
             IsBusy = true;
             DeserializeEditMonthLimit();
+            await ExecuteLoadExpensesCommand();
         }
         private async void SpentValueChanged(Expense expense)
         {
