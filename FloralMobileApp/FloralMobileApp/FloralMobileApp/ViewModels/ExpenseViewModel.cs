@@ -140,6 +140,7 @@ namespace FloralMobileApp.ViewModels
                 limit.Value = result;
                 doc.Save(pathFull);
                 DeserializeEditMonthLimit();
+                MoneyCalc();
             }
         }
         private void DeserializeEditMonthLimit()
