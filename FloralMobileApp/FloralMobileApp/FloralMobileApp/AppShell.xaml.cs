@@ -18,6 +18,7 @@ namespace FloralMobileApp
         private Color globalPlansColor;
         private Color diaryColor;
         private Color cameraColor;
+        private Color postColor;
         private Color aboutColor;
 
         public Color ExpenseColor
@@ -74,6 +75,15 @@ namespace FloralMobileApp
                 OnPropertyChanged("CameraColor");
             }
         }
+        public Color PostColor
+        {
+            get { return postColor; }
+            set
+            {
+                postColor = value;
+                OnPropertyChanged("PostColor");
+            }
+        }
         public Color AboutColor
         {
             get { return aboutColor; }
@@ -93,6 +103,7 @@ namespace FloralMobileApp
             GlobalPlansColor = Color.FromHex(mainColor);
             DiaryColor = Color.FromHex(mainColor);
             CameraColor = Color.FromHex(mainColor);
+            PostColor = Color.FromHex(mainColor);
             AboutColor = Color.FromHex(mainColor);
         }
 
@@ -145,6 +156,11 @@ namespace FloralMobileApp
                 else if (menuItem.Text == "Идеи для фотографий")
                 {
                     CameraColor = Color.FromHex("#495057");
+                    Shell.Current.CurrentItem.CurrentItem.Items.Add(new ItemsPage(menuItem.Text));
+                }
+                else if (menuItem.Text == "Идеи для постов")
+                {
+                    PostColor = Color.FromHex("#495057");
                     Shell.Current.CurrentItem.CurrentItem.Items.Add(new ItemsPage(menuItem.Text));
                 }
                 Shell.Current.CurrentItem.CurrentItem.Items.RemoveAt(0);
