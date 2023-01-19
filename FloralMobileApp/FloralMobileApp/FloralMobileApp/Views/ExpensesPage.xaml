@@ -89,7 +89,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Style="{StaticResource CardFrameStyle}" x:DataType="model:Expense">
-                            <StackLayout Orientation="Horizontal" x:DataType="model:Expense" BackgroundColor="{StaticResource Main}">
+                            <StackLayout Orientation="Horizontal" x:DataType="model:Expense" BackgroundColor="{StaticResource Main}" HorizontalOptions="Center">
                                 <Label Text="{Binding Day}"
                                            TextColor="{StaticResource Secondary}"
                                            FontSize="20"
@@ -101,6 +101,19 @@
                                         Text="{Binding SpentValue, Mode=TwoWay}"
                                         HorizontalTextAlignment="Center"
                                         WidthRequest="100">
+                                        <Entry.Behaviors>
+                                            <xct:EventToCommandBehavior
+                                                EventName="TextChanged"
+                                                Command="{Binding Source={x:Reference expensePage}, Path=BindingContext.SpentValueChangedCommand}"
+                                                CommandParameter="{Binding}"/>
+                                        </Entry.Behaviors>
+                                    </Entry>
+                                <Entry
+                                        TextColor="{StaticResource Primary}"
+                                        Text="{Binding ExtraExpense, Mode=TwoWay}"
+                                        HorizontalTextAlignment="Center"
+                                        WidthRequest="185"
+                                    Opacity="0.3">
                                     <Entry.Behaviors>
                                         <xct:EventToCommandBehavior
                                                 EventName="TextChanged"

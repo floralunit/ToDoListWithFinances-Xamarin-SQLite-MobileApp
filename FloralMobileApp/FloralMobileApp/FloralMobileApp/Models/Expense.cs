@@ -17,6 +17,12 @@ namespace FloralMobileApp.Models
             get => _spentValue;
             set => this.RaiseAndSetIfChanged(ref _spentValue, value);
         }
+        public string ExtraExpense
+        {
+            get => _extraExpense;
+            set => this.RaiseAndSetIfChanged(ref _extraExpense, value);
+        }
+        private string _extraExpense;
         private double _spentValue;
     }
 }

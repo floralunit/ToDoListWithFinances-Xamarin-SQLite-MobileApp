@@ -78,7 +78,8 @@ namespace FloralMobileApp.Services
                         Day = i,
                         Month = month,
                         Year = year,
-                        SpentValue = 0
+                        SpentValue = 0,
+                        ExtraExpense = ""
                     };
                     await db.InsertAsync(expense);
                 }
