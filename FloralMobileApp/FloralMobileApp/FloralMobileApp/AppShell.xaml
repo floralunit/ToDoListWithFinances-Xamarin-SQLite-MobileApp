@@ -155,12 +155,45 @@
         </Shell.MenuItemTemplate>
     </MenuItem>
 
+    <MenuItem Text="Идеи для видео" Clicked="OnMenuItemClicked">
+        <Shell.MenuItemTemplate>
+            <DataTemplate>
+                <StackLayout Orientation="Horizontal" BackgroundColor="{Binding BindingContext.VideoColor}">
+                    <Image Source="movie.png" WidthRequest="25" Margin="15"/>
+                    <Label Text="Идеи для видео" FontSize="15" Margin="15" TextColor="{StaticResource Primary}"></Label>
+                </StackLayout>
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+
+    <MenuItem Text="Идеи для лягушек" Clicked="OnMenuItemClicked">
+        <Shell.MenuItemTemplate>
+            <DataTemplate>
+                <StackLayout Orientation="Horizontal" BackgroundColor="{Binding BindingContext.FrogColor}">
+                    <Image Source="frog.png" WidthRequest="25" Margin="15"/>
+                    <Label Text="Идеи для лягушек" FontSize="15" Margin="15" TextColor="{StaticResource Primary}"></Label>
+                </StackLayout>
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+
     <MenuItem Text="Идеи для постов" Clicked="OnMenuItemClicked">
         <Shell.MenuItemTemplate>
             <DataTemplate>
                 <StackLayout Orientation="Horizontal" BackgroundColor="{Binding BindingContext.PostColor}">
                     <Image Source="social_media.png" WidthRequest="25" Margin="15"/>
                     <Label Text="Идеи для постов" FontSize="15" Margin="15" TextColor="{StaticResource Primary}"></Label>
+                </StackLayout>
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+
+    <MenuItem Text="Тревожный список" Clicked="OnMenuItemClicked">
+        <Shell.MenuItemTemplate>
+            <DataTemplate>
+                <StackLayout Orientation="Horizontal" BackgroundColor="{Binding BindingContext.TrevogaColor}">
+                    <Image Source="tears.png" WidthRequest="25" Margin="15"/>
+                    <Label Text="Тревожный список" FontSize="15" Margin="15" TextColor="{StaticResource Primary}"></Label>
                 </StackLayout>
             </DataTemplate>
         </Shell.MenuItemTemplate>
@@ -184,6 +217,7 @@
             </DataTemplate>
         </Shell.MenuItemTemplate>
     </MenuItem>
+
 
     <Shell.FlyoutFooterTemplate>
         <DataTemplate>

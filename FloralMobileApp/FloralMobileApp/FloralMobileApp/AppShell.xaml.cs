@@ -20,6 +20,9 @@ namespace FloralMobileApp
         private Color cameraColor;
         private Color postColor;
         private Color aboutColor;
+        private Color videoColor;
+        private Color frogColor;
+        private Color trevogaColor;
 
         public Color ExpenseColor
         {
@@ -93,6 +96,33 @@ namespace FloralMobileApp
                 OnPropertyChanged("AboutColor");
             }
         }
+        public Color VideoColor
+        {
+            get { return videoColor; }
+            set
+            {
+                videoColor = value;
+                OnPropertyChanged("VideoColor");
+            }
+        }
+        public Color FrogColor
+        {
+            get { return frogColor; }
+            set
+            {
+                frogColor = value;
+                OnPropertyChanged("FrogColor");
+            }
+        }
+        public Color TrevogaColor
+        {
+            get { return trevogaColor; }
+            set
+            {
+                trevogaColor = value;
+                OnPropertyChanged("TrevogaColor");
+            }
+        }
 
         private void SetColorsToMain()
         {
@@ -105,6 +135,9 @@ namespace FloralMobileApp
             CameraColor = Color.FromHex(mainColor);
             PostColor = Color.FromHex(mainColor);
             AboutColor = Color.FromHex(mainColor);
+            FrogColor = Color.FromHex(mainColor);
+            VideoColor = Color.FromHex(mainColor);
+            TrevogaColor = Color.FromHex(mainColor);
         }
 
         #endregion
@@ -161,6 +194,21 @@ namespace FloralMobileApp
                 else if (menuItem.Text == "Идеи для постов")
                 {
                     PostColor = Color.FromHex("#495057");
+                    Shell.Current.CurrentItem.CurrentItem.Items.Add(new ItemsPage(menuItem.Text));
+                }
+                else if (menuItem.Text == "Идеи для видео")
+                {
+                    VideoColor = Color.FromHex("#495057");
+                    Shell.Current.CurrentItem.CurrentItem.Items.Add(new ItemsPage(menuItem.Text));
+                }
+                else if (menuItem.Text == "Идеи для лягушек")
+                {
+                    FrogColor = Color.FromHex("#495057");
+                    Shell.Current.CurrentItem.CurrentItem.Items.Add(new ItemsPage(menuItem.Text));
+                }
+                else if (menuItem.Text == "Тревожный список")
+                {
+                    TrevogaColor = Color.FromHex("#495057");
                     Shell.Current.CurrentItem.CurrentItem.Items.Add(new ItemsPage(menuItem.Text));
                 }
                 Shell.Current.CurrentItem.CurrentItem.Items.RemoveAt(0);
